@@ -21,7 +21,7 @@ bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
 
-pygame.display.set_caption('caption')
+pygame.display.set_caption('KEY_STROKE')
 
 smallfont = pygame.font.SysFont("noteworthy" , 22)
 mediumfont = pygame.font.SysFont("noteworthy" , 40)
@@ -74,7 +74,7 @@ def intro ():
 				quit()
 			
 		gd.blit(bg2 ,(0,0))
-		message_to_screen("Welcome to caption" , blue , 0,-50 , "large")
+		message_to_screen("Welcome to KEY_STROKE" , blue , 0,-50 , "large")
 		message_to_screen("BURST THE BALLOONS!" , white , 0,0 , "small")
 
 		
