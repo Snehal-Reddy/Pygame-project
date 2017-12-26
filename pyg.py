@@ -21,7 +21,7 @@ bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
 
-pygame.display.set_caption('KEY_STROKE')
+pygame.display.set_caption('caption')
 
 smallfont = pygame.font.SysFont("noteworthy" , 22)
 mediumfont = pygame.font.SysFont("noteworthy" , 40)
@@ -35,26 +35,52 @@ def t2b(msg , color , bx, by , bw , bh, size = "small"):
 	textrect.center = ((bx + bw/2),(by + bh/2))
 	gd.blit(textsurf , textrect)
 
+
+def textobj(text , color, size):
+	if size == "small":
+		textsurf = smallfont.render(text , True ,color)
+		return textsurf , textsurf.get_rect()
+	if size == "medium":
+		textsurf = mediumfont.render(text , True ,color)
+		return textsurf , textsurf.get_rect()
+	if size == "large":
+		textsurf = largefont.render(text , True ,color)
+	return textsurf , textsurf.get_rect()
+
+
+def message_to_screen (msg , color = (0,0,0) ,xd=0 , yd = 0 , size = "large"):
+	textsurf , textrect = textobj(msg,color,size)
+	textrect.center = (dw/2)+xd,(dh/2)+yd
+	gd.blit(textsurf,textrect)
+
 #adding button functionality
-def button(msg,bx,by,bw,bh,color1,color):
+def button(msg,bx,by,bw,bh,color1,color,action):
+
 	cur = pygame.mouse.get_pos()
 	click = pygame.mouse.get_pressed()
 	if bx+bw > cur[0] > bx and by+bh > cur[1] > by:
 		pygame.draw.rect(gd, color , (bx,by,bw,bh))
-		if click[0] == 1:
-			if msg == "play":
+		if click[0] == 1 :
+			print("click")
+			if action == "play":
+				print("play 2 ls")
 				level_screen()
-			elif msg == "instructions":
+			elif action == "instructions":
+				print("inst")
 				inst()
-			elif msg == "quit":
+			elif action == "quit":
 				pygame.quit()
 				quit()
-			elif msg == "Easy":
+			elif action == "Easy":
+				print("easy")
 				gameloop("Easy")
-			elif msg == "Medium":
+			elif action == "Medium":
+				print("medium")
 				gameloop("Medium")
-			elif msg == "Hard":
+			elif action == "Hard":
+				print("hard")
 				gameloop("Hard")
+
 
 
 	
@@ -65,7 +91,7 @@ def button(msg,bx,by,bw,bh,color1,color):
 
 #the first screen
 def intro ():
-	print("intro")
+	
 	intro = True
 	while intro :
 		for event in pygame.event.get():
@@ -74,13 +100,13 @@ def intro ():
 				quit()
 			
 		gd.blit(bg2 ,(0,0))
-		message_to_screen("Welcome to KEY_STROKE" , blue , 0,-50 , "large")
+		message_to_screen("Welcome to caption" , blue , 0,-50 , "large")
 		message_to_screen("BURST THE BALLOONS!" , white , 0,0 , "small")
 
 		
-		button("play" , 50,350,150,50 ,blue , darkblue)
-		button("instructions" ,325,350,150,50  ,white , grey)
-		button("quit" ,600,350,150,50  ,blue , darkblue)
+		button("play" , 50,350,150,50 ,blue , darkblue,action="play")
+		button("instructions" ,325,350,150,50  ,white , grey,action="instructions")
+		button("quit" ,600,350,150,50  ,blue , darkblue,action="quit")
 
 		pygame.display.update()
 		clock.tick(15)	
@@ -110,22 +136,6 @@ def score (sc):
 	text = smallfont.render("Score: "+str(sc),True ,white)
 	gd.blit(text,[0,0])
 
-def textobj(text , color, size):
-	if size == "small":
-		textsurf = smallfont.render(text , True ,color)
-		return textsurf , textsurf.get_rect()
-	if size == "medium":
-		textsurf = mediumfont.render(text , True ,color)
-		return textsurf , textsurf.get_rect()
-	if size == "large":
-		textsurf = largefont.render(text , True ,color)
-	return textsurf , textsurf.get_rect()
-
-
-def message_to_screen (msg , color = (0,0,0) ,xd=0 , yd = 0 , size = "large"):
-	textsurf , textrect = textobj(msg,color,size)
-	textrect.center = (dw/2)+xd,(dh/2)+yd
-	gd.blit(textsurf,textrect)
 
 #instruction screen
 def inst() :
@@ -141,9 +151,9 @@ def inst() :
 		message_to_screen("The aim is to burst all the balloons before they reach the top" , white , 0,-10 , "small")
 		message_to_screen("The balloons burst if the relevant key is pressed" , white ,0, 15 , "small")
 
-		button("play" , 50,450,150,50 ,green , darkgreen)
+		button("play" , 50,450,150,50 ,green , darkgreen,action="play")
 		
-		button("quit" ,600,450,150,50  ,green , darkgreen)
+		button("quit" ,600,450,150,50  ,green , darkgreen,action="quit")
 
 		pygame.display.update()
 		clock.tick(15)	
@@ -151,6 +161,7 @@ def inst() :
 #screen to display diiferent levels
 def level_screen():
 	ls = True
+	print("level")
 	while ls :
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -159,12 +170,13 @@ def level_screen():
 
 
 		gd.blit(bg2 ,(0,0))
-		message_to_screen("BURST THE BALLOONS!" , blue , 0,-50 , "large")
+		pygame.display.update()
+		message_to_screen("BURST THE BALLOONS!" , blue , 0,+50 , "large")
 
 		
-		button("Easy" , 50,350,150,50 ,blue , darkblue)
-		button("Medium" ,325,350,150,50  ,white , grey)
-		button("Hard" ,600,350,150,50  ,blue , darkblue)
+		button("Easy" , 50,200,150,50 ,blue , darkblue , action = "Easy")
+		button("Medium" ,325,200,150,50  ,white , grey , action="Medium")
+		button("Hard" ,600,200,150,50  ,blue , darkblue , action="Hard")
 
 		pygame.display.update()
 		clock.tick(15)	
