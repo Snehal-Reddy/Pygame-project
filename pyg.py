@@ -61,24 +61,18 @@ def button(msg,bx,by,bw,bh,color1,color,action):
 	if bx+bw > cur[0] > bx and by+bh > cur[1] > by:
 		pygame.draw.rect(gd, color , (bx,by,bw,bh))
 		if click[0] == 1 :
-			print("click")
 			if action == "play":
-				print("play 2 ls")
 				level_screen()
 			elif action == "instructions":
-				print("inst")
 				inst()
 			elif action == "quit":
 				pygame.quit()
 				quit()
 			elif action == "Easy":
-				print("easy")
 				gameloop("Easy")
 			elif action == "Medium":
-				print("medium")
 				gameloop("Medium")
 			elif action == "Hard":
-				print("hard")
 				gameloop("Hard")
 
 
@@ -161,7 +155,6 @@ def inst() :
 #screen to display diiferent levels
 def level_screen():
 	ls = True
-	print("level")
 	while ls :
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -199,7 +192,6 @@ for i in range (0,20):
 
 
 def gameloop(level):
-	print("gl")
 	ex = False
 	ov = False
 	balloonlist=[]
