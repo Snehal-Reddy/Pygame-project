@@ -21,7 +21,7 @@ bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
 
-pygame.display.set_caption('caption')
+pygame.display.set_caption('Key Stroke')
 
 smallfont = pygame.font.SysFont("noteworthy" , 22)
 mediumfont = pygame.font.SysFont("noteworthy" , 40)
@@ -86,8 +86,8 @@ def button(msg,bx,by,bw,bh,color1,color,action):
 #the first screen
 def intro ():
 	
-	intro = True
-	while intro :
+	intro1 = True
+	while intro1 :
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
@@ -103,7 +103,7 @@ def intro ():
 		button("quit" ,600,350,150,50  ,blue , darkblue,action="quit")
 
 		pygame.display.update()
-		clock.tick(15)	
+		clock.tick(100)	
 
 #pause function
 def pause():
@@ -124,12 +124,11 @@ def pause():
 					quit()
 
 			clock.tick(5)
-
+sc = 0
 #score function
 def score (sc):
-	text = smallfont.render("Score: "+str(sc),True ,white)
-	gd.blit(text,[0,0])
-
+	message_to_screen("Score : "+str(sc) , black , -400,-290 , "small")
+	pygame.display.update()
 
 #instruction screen
 def inst() :
@@ -184,11 +183,13 @@ def balloon():
 
 balloonl=[]
 balloonx=[]
+balloony=[]
 
 
 for i in range (0,20):
 	balloonx.append(round(random.randrange(0,570)/20)*20)
 	balloonl.append(random.choice(string.ascii_letters))
+	balloony.append(y)
 
 
 def gameloop(level):
@@ -197,8 +198,7 @@ def gameloop(level):
 	balloonlist=[]
 	fps = 15
 	number = 8
-	global rx , c, y 
-	
+	global rx , c, y,sc	
 	if level == "Easy":
 		number = 8
 	if level == "Medium":
@@ -229,25 +229,208 @@ def gameloop(level):
 						ov = False
 					if event.key == pygame.K_c:
 						gameloop()
+		
+		gd.blit(bg1 , (0,0))
+		pygame.display.update()
+		for i in range (0,number):
+			gd.blit(bal , (balloonx[i],balloony[i]))
+			message_to_screen(balloonl[i],black,balloonx[i]-435,balloony[i]-290,"small")
+			
+			pygame.display.update()
 
-
+        
 		for event in pygame.event.get():
+			
 			
 			if event.type == pygame.QUIT:
 				ex = True
-			
-						
-		gd.blit(bg1 , (0,0))
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_a:
+					for i in range(0,number):
+						if  balloonl[i] == 'a':
+							sc = sc + 5
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_b:
+					for i in range(0,number):
+						if  balloonl[i] == 'b':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_c:
+					for i in range(0,number):
+						if  balloonl[i] =='c':
+							sc = sc + 5
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_d:
+					for i in range(0,number):
+						if  balloonl[i] == 'd':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_e:
+					for i in range(0,number):
+						if  balloonl[i] == 'e':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_f:
+					for i in range(0,number):
+						if  balloonl[i] == 'f':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_g:
+					for i in range(0,number):
+						if  balloonl[i] == 'g':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_h:
+					for i in range(0,number):
+						if  balloonl[i] == 'h':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_i:
+					for i in range(0,number):
+						if  balloonl[i] == 'i':
+							sc = sc + 5
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_j:
+					for i in range(0,number):
+						if  balloonl[i] == 'j':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_k:
+					for i in range(0,number):
+						if  balloonl[i] =='k':
+							sc = sc + 5
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_l:
+					for i in range(0,number):
+						if  balloonl[i] == 'l':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_m:
+					for i in range(0,number):
+						if  balloonl[i] == 'm':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_n:
+					for i in range(0,number):
+						if  balloonl[i] == 'n':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_o:
+					for i in range(0,number):
+						if  balloonl[i] == 'o':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_p:
+					for i in range(0,number):
+						if  balloonl[i] == 'p':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_q:
+					for i in range(0,number):
+						if  balloonl[i] == 'q':
+							sc = sc + 5
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_r:
+					for i in range(0,number):
+						if  balloonl[i] == 'r':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_s:
+					for i in range(0,number):
+						if  balloonl[i] =='s':
+							sc = sc + 5
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_t:
+					for i in range(0,number):
+						if  balloonl[i] == 't':
+							sc = sc + 5 
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_u:
+					for i in range(0,number):
+						if  balloonl[i] == 'u':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_v:
+					for i in range(0,number):
+						if  balloonl[i] == 'v':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_w:
+					for i in range(0,number):
+						if  balloonl[i] == 'w':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_x:
+					for i in range(0,number):
+						if  balloonl[i] == 'x':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_y:
+					for i in range(0,number):
+						if  balloonl[i] == 'y':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+				elif event.key == pygame.K_z:
+					for i in range(0,number):
+						if  balloonl[i] == 'z':
+							sc = sc + 5
+							
+							balloonl[i] = random.choice(string.ascii_letters)
+							balloony[i] = 570
+		
+
+		
+		for i in range(0,number):
+			balloony[i] = balloony[i] - 1
+			if balloony[i]<= 0:
+				ov = True
+		
+		score(sc)
 		pygame.display.update()
-		
-		
-		for i in range (0,number):
-			gd.blit(bal , (balloonx[i],y))
-			message_to_screen(balloonl[i],black,balloonx[i]-435,y-290,"small")
-			
-			pygame.display.update()
-	   
-		y = y - 20
-		clock.tick(15)
+		clock.tick(30)
 
 intro()
