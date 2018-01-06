@@ -102,8 +102,7 @@ def intro ():
 		button("instructions" ,325,350,150,50  ,white , grey,action="instructions")
 		button("quit" ,600,350,150,50  ,blue , darkblue,action="quit")
 
-		pygame.display.update()
-		clock.tick(15)	
+		pygame.display.update()	
 
 #pause function
 def pause():
