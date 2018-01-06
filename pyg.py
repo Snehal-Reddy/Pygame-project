@@ -86,8 +86,8 @@ def button(msg,bx,by,bw,bh,color1,color,action):
 #the first screen
 def intro ():
 	
-	intro1 = True
-	while intro1 :
+	intro = True
+	while intro :
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
@@ -103,7 +103,7 @@ def intro ():
 		button("quit" ,600,350,150,50  ,blue , darkblue,action="quit")
 
 		pygame.display.update()
-		clock.tick(100)	
+		clock.tick(15)	
 
 #pause function
 def pause():
@@ -238,9 +238,8 @@ def gameloop(level):
 			
 			pygame.display.update()
 
-        
+
 		for event in pygame.event.get():
-			
 			
 			if event.type == pygame.QUIT:
 				ex = True
@@ -425,12 +424,11 @@ def gameloop(level):
 
 		
 		for i in range(0,number):
-			balloony[i] = balloony[i] - 1
+			balloony[i] = balloony[i] - 10
 			if balloony[i]<= 0:
 				ov = True
-		
 		score(sc)
-		pygame.display.update()
-		clock.tick(30)
+	
+		clock.tick(100)
 
 intro()
