@@ -241,7 +241,8 @@ def gameloop(level):
 		for event in pygame.event.get():
 			
 			if event.type == pygame.QUIT:
-				ex = True
+				pygame.quit()
+				quit()
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_a:
 					for i in range(0,number):
