@@ -3,6 +3,7 @@ import random
 import string
 
 pygame.init()
+pygame.mixer.init()
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)
@@ -17,9 +18,18 @@ dh = 600
 
 gd = pygame.display.set_mode((dw,dh))
 
+#game images
 bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
+
+#game sounds
+wrongkey = pygame.mixer.Sound("wrongkey.wav")
+burst = pygame.mixer.Sound("burst.wav")
+
+#music
+pygame.mixer.music.load("theme.wav")
+pygame.mixer.music.play()
 
 pygame.display.set_caption('Key Stroke')
 
@@ -28,7 +38,6 @@ mediumfont = pygame.font.SysFont("noteworthy" , 40)
 largefont = pygame.font.SysFont("Bradley Hand" , 60)
 
 clock = pygame.time.Clock()
-ov = False
 
 #adding text to buttons
 def t2b(msg , color , bx, by , bw , bh, size = "small"):
@@ -70,13 +79,10 @@ def button(msg,bx,by,bw,bh,color1,color,action):
 				pygame.quit()
 				quit()
 			elif action == "Easy":
-				ov = False
 				gameloop("Easy")
 			elif action == "Medium":
-				ov = False
 				gameloop("Medium")
 			elif action == "Hard":
-				ov = False
 				gameloop("Hard")
 
 
@@ -98,7 +104,7 @@ def intro ():
 				quit()
 			
 		gd.blit(bg2 ,(0,0))
-		message_to_screen("Welcome to caption" , blue , 0,-50 , "large")
+		message_to_screen("Welcome to KeyStroke" , blue , 0,-50 , "large")
 		message_to_screen("BURST THE BALLOONS!" , white , 0,0 , "small")
 
 		
@@ -126,7 +132,7 @@ def pause():
 					pygame.quit()
 					quit()
 
-			#clock.tick(5)
+			clock.tick(15)
 sc = 0
 #score function
 def score (sc):
@@ -152,7 +158,7 @@ def inst() :
 		button("quit" ,600,450,150,50  ,green , darkgreen,action="quit")
 
 		pygame.display.update()
-		#clock.tick(15)	
+		clock.tick(15)	
 
 #screen to display diiferent levels
 def level_screen():
@@ -168,17 +174,14 @@ def level_screen():
 		pygame.display.update()
 		message_to_screen("BURST THE BALLOONS!" , blue , 0,+50 , "large")
 
-		ov = False
 		
 		button("Easy" , 50,200,150,50 ,blue , darkblue , action = "Easy")
 		button("Medium" ,325,200,150,50  ,white , grey , action="Medium")
 		button("Hard" ,600,200,150,50  ,blue , darkblue , action="Hard")
 
 		pygame.display.update()
-		#clock.tick(15)	
-rx = random.randrange(0,570)
-c = random.choice(string.ascii_letters)
-y = 570
+		clock.tick(15)	
+
 #balloon function
 def balloon():
 	gd.blit(bal , (rx , y ) )
@@ -191,13 +194,13 @@ balloony=[]
 
 
 for i in range (0,20):
-	balloonx.append(round(random.randrange(0,570)//20)*20)
+	balloonx.append(round(random.randrange(0,870)//20)*20)
 	balloonl.append(random.choice(string.ascii_letters))
-	balloony.append(y)
-
+	balloony.append(random.randrange(600,650))
+	
 
 def gameloop(level):
-	global ov
+	ov = False
 	ex = False
 	#ov = False
 	balloonlist=[]
@@ -216,7 +219,7 @@ def gameloop(level):
 		if ov == True:
 			gd.fill((50,100,200))
 			message_to_screen("game over",white,0,0,"large")
-			message_to_screen("press c to pay again",white,0,40,"small")
+			message_to_screen("press c to play again",white,0,40,"small")
 			message_to_screen("press q to quit",white,0,70,"small")
 			
 			pygame.display.update()
@@ -244,7 +247,6 @@ def gameloop(level):
 			
 		pygame.display.update()
 
-
 		for event in pygame.event.get():
 			
 			if event.type == pygame.QUIT:
@@ -253,370 +255,604 @@ def gameloop(level):
 			if event.type == pygame.KEYDOWN:	
 				if event.key == pygame.K_a:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						A1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'A':
 								sc = sc + 5
-								
+								A1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(A1):
+							wrongkey.play()
 
 					else:
+						a1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'a':
 								sc = sc + 5
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+								a1 = False
+								burst.play()
+						if(a1):
+							wrongkey.play()
 
 				elif event.key == pygame.K_b:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						B1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'B':
 								sc = sc + 5
-								
+								B1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(B1):
+							wrongkey.play()
 					else:
+						b1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'b':
 								sc = sc + 5
+								b1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(b1):
+							wrongkey.play()
 				elif event.key == pygame.K_c:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						C1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'C':
 								sc = sc + 5
-								
+								C1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(C1):
+							wrongkey.play()
 					else:
+						c1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'c':
 								sc = sc + 5
+								c1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(c1):
+							wrongkey.play()
 				elif event.key == pygame.K_d:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						D1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'D':
 								sc = sc + 5
-								
+								D1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(D1):
+							wrongkey.play()
 					else:
+						d1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'd':
 								sc = sc + 5
+								d1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(d1):
+							wrongkey.play()
 				elif event.key == pygame.K_e:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						E1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'E':
 								sc = sc + 5
-								
+								E1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(E1):
+							wrongkey.play()
 					else:
+						e1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'e':
 								sc = sc + 5
+								e1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(e1):
+							wrongkey.play()
 				elif event.key == pygame.K_f:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						F1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'F':
 								sc = sc + 5
-								
+								F1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(F1):
+							wrongkey.play()
 					else:
+						f1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'f':
 								sc = sc + 5
+								f1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(f1):
+							wrongkey.play()
 				elif event.key == pygame.K_g:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						G1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'G':
 								sc = sc + 5
-								
+								G1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(G1):
+							wrongkey.play()
 					else:
+						g1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'g':
 								sc = sc + 5
+								g1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(g1):
+							wrongkey.play()
 				elif event.key == pygame.K_h:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						H1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'H':
 								sc = sc + 5
-								
+								H1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(H1):
+							wrongkey.play()
 					else:
+						h1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'h':
 								sc = sc + 5
+								H1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(h1):
+							wrongkey.play()
 				elif event.key == pygame.K_i:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						I1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'I':
 								sc = sc + 5
-								
+								I1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(I1):
+							wrongkey.play()
 					else:
+						i1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'i':
 								sc = sc + 5
+								i1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(i1):
+							wrongkey.play()
 				elif event.key == pygame.K_j:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						J1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'J':
 								sc = sc + 5
-								
+								J1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(J1):
+							wrongkey.play()
 					else:
+						j1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'j':
 								sc = sc + 5
+								j1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(j1):
+							wrongkey.play()
 				elif event.key == pygame.K_k:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						K1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'K':
 								sc = sc + 5
-								
+								K1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(K1):
+							wrongkey.play()
 					else:
+						k1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'k':
 								sc = sc + 5
+								k1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(k1):
+							wrongkey.play()
 				elif event.key == pygame.K_l:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						L1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'L':
 								sc = sc + 5
-								
+								L1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(L1):
+							wrongkey.play()
 					else:
+						l1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'l':
 								sc = sc + 5
+								l1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(l1):
+							wrongkey.play()
 				elif event.key == pygame.K_m:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						M1= True
 						for i in range(0,number):
 							if  balloonl[i] == 'M':
 								sc = sc + 5
-								
+								M1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(M1):
+							wrongkey.play()
 					else:
+						m1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'm':
 								sc = sc + 5
+								m1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(m1):
+							wrongkey.play()
 				elif event.key == pygame.K_n:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						N1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'N':
 								sc = sc + 5
-								
+								N1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(N1):
+							wrongkey.play()
 					else:
+						n1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'n':
 								sc = sc + 5
+								n1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(n1):
+							wrongkey.play()
 				elif event.key == pygame.K_o:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						O1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'O':
 								sc = sc + 5
-								
+								O1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(O1):
+							wrongkey.play()
 					else:
+						o1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'o':
 								sc = sc + 5
+								o1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(o1):
+							wrongkey.play()
 				elif event.key == pygame.K_p:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						P1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'P':
 								sc = sc + 5
-								
+								P1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(P1):
+							wrongkey.play()
 					else:
+						p1  = True
 						for i in range(0,number):
 							if  balloonl[i] == 'p':
 								sc = sc + 5
+								p1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(p1):
+							wrongkey.play()
 				elif event.key == pygame.K_q:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						Q1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'Q':
 								sc = sc + 5
-								
+								Q1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(Q1):
+							wrongkey.play()
 					else:
+						q1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'q':
 								sc = sc + 5
+								q1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(q1):
+							wrongkey.play()
 				elif event.key == pygame.K_r:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						R1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'R':
 								sc = sc + 5
-								
+								R1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(R1):
+							wrongkey.play()
 					else:
+						r1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'r':
 								sc = sc + 5
+								r1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(r1):
+							wrongkey.play()
 				elif event.key == pygame.K_s:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						S1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'S':
 								sc = sc + 5
-								
+								S1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(S1):
+							wrongkey.play()
 					else:
+						s1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 's':
 								sc = sc + 5
+								s1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(s1):
+							wrongkey.play()
 				elif event.key == pygame.K_t:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						T1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'T':
 								sc = sc + 5
-								
+								T1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(T1):
+							wrongkey.play()
 					else:
+						t1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 't':
 								sc = sc + 5
+								t1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(t1):
+							wrongkey.play()
 				elif event.key == pygame.K_u:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						U1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'U':
 								sc = sc + 5
-								
+								U1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(U1):
+							wrongkey.play()
 					else:
+						u1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'u':
 								sc = sc + 5
+								u1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(u1):
+							wrongkey.play()
 				elif event.key == pygame.K_v:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						V1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'V':
 								sc = sc + 5
-								
+								V1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(V1):
+							wrongkey.play()
 					else:
+						v1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'v':
 								sc = sc + 5
+								v1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(v1):
+							wrongkey.play()
 				elif event.key == pygame.K_w:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						W1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'W':
 								sc = sc + 5
-								
+								W1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(W1):
+							wrongkey.play()
 					else:
+						w1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'w':
 								sc = sc + 5
+								w1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(w1):
+							wrongkey.play()
 				elif event.key == pygame.K_x:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						X1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'X':
 								sc = sc + 5
-								
+								X1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(X1):
+							wrongkey.play()
 					else:
+						x1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'x':
 								sc = sc + 5
+								x1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(x1):
+							wrongkey.play()
 				elif event.key == pygame.K_y:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						Y1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'Y':
 								sc = sc + 5
-								
+								Y1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(Y1):
+							wrongkey.play()
 					else:
+						y1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'y':
 								sc = sc + 5
+								y1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(y1):
+							wrongkey.play()
 				elif event.key == pygame.K_z:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+						Z1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'Z':
 								sc = sc + 5
-								
+								Z1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(Z1):
+							wrongkey.play()
 					else:
+						z1 = True
 						for i in range(0,number):
 							if  balloonl[i] == 'z':
 								sc = sc + 5
+								z1 = False
+								burst.play()
 								balloonl[i] = random.choice(string.ascii_letters)
-								balloony[i] = 570
+								balloony[i] = random.randrange(600,650)
+						if(z1):
+							wrongkey.play()
 		
 
 		
