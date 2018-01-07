@@ -23,6 +23,7 @@ bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
 heart = pygame.image.load("heart0024.png")
+button = pygame.image.load("button.png")
 
 #game sounds
 wrongkey = pygame.mixer.Sound("wrongkey.wav")
@@ -247,6 +248,7 @@ def gameloop(level):
 						balloonl=[]
 						balloonx=[]
 						balloony=[]
+						sc = 0
 						for i in range (0,20):
 							balloonx.append(round(random.randrange(0,870)//20)*20)
 							balloonl.append(random.choice(string.ascii_letters))
@@ -291,6 +293,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(A1):
 							wrongkey.play()
+							sc = sc - 10
 
 					else:
 						a1 = True
@@ -303,6 +306,7 @@ def gameloop(level):
 								burst.play()
 						if(a1):
 							wrongkey.play()
+							sc = sc - 10
 
 				elif event.key == pygame.K_b:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
@@ -316,6 +320,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(B1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						b1 = True
 						for i in range(0,number):
@@ -327,6 +332,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(b1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_c:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						C1 = True
@@ -339,6 +345,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(C1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						c1 = True
 						for i in range(0,number):
@@ -350,6 +357,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(c1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_d:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						D1 = True
@@ -362,6 +370,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(D1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						d1 = True
 						for i in range(0,number):
@@ -373,6 +382,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(d1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_e:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						E1 = True
@@ -385,6 +395,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(E1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						e1 = True
 						for i in range(0,number):
@@ -396,6 +407,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(e1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_f:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						F1 = True
@@ -408,6 +420,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(F1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						f1 = True
 						for i in range(0,number):
@@ -419,6 +432,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(f1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_g:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						G1 = True
@@ -431,6 +445,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(G1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						g1 = True
 						for i in range(0,number):
@@ -442,6 +457,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(g1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_h:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						H1 = True
@@ -454,6 +470,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(H1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						h1 = True
 						for i in range(0,number):
@@ -465,6 +482,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(h1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_i:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						I1 = True
@@ -477,6 +495,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(I1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						i1 = True
 						for i in range(0,number):
@@ -488,6 +507,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(i1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_j:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						J1 = True
@@ -500,6 +520,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(J1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						j1 = True
 						for i in range(0,number):
@@ -511,6 +532,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(j1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_k:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						K1 = True
@@ -523,6 +545,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(K1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						k1 = True
 						for i in range(0,number):
@@ -534,6 +557,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(k1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_l:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						L1 = True
@@ -546,6 +570,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(L1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						l1 = True
 						for i in range(0,number):
@@ -557,6 +582,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(l1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_m:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						M1= True
@@ -569,6 +595,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(M1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						m1 = True
 						for i in range(0,number):
@@ -580,6 +607,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(m1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_n:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						N1 = True
@@ -592,6 +620,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(N1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						n1 = True
 						for i in range(0,number):
@@ -603,6 +632,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(n1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_o:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						O1 = True
@@ -615,6 +645,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(O1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						o1 = True
 						for i in range(0,number):
@@ -626,6 +657,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(o1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_p:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						P1 = True
@@ -638,6 +670,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(P1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						p1  = True
 						for i in range(0,number):
@@ -649,6 +682,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(p1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_q:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						Q1 = True
@@ -661,6 +695,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(Q1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						q1 = True
 						for i in range(0,number):
@@ -672,6 +707,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(q1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_r:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						R1 = True
@@ -684,6 +720,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(R1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						r1 = True
 						for i in range(0,number):
@@ -695,6 +732,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(r1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_s:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						S1 = True
@@ -707,6 +745,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(S1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						s1 = True
 						for i in range(0,number):
@@ -718,6 +757,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(s1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_t:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						T1 = True
@@ -730,6 +770,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(T1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						t1 = True
 						for i in range(0,number):
@@ -741,6 +782,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(t1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_u:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						U1 = True
@@ -753,6 +795,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(U1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						u1 = True
 						for i in range(0,number):
@@ -764,6 +807,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(u1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_v:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						V1 = True
@@ -776,6 +820,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(V1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						v1 = True
 						for i in range(0,number):
@@ -787,6 +832,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(v1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_w:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						W1 = True
@@ -799,6 +845,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(W1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						w1 = True
 						for i in range(0,number):
@@ -810,6 +857,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(w1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_x:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						X1 = True
@@ -822,6 +870,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(X1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						x1 = True
 						for i in range(0,number):
@@ -833,6 +882,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(x1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_y:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						Y1 = True
@@ -845,6 +895,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(Y1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						y1 = True
 						for i in range(0,number):
@@ -856,6 +907,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(y1):
 							wrongkey.play()
+							sc = sc - 10
 				elif event.key == pygame.K_z:
 					if pygame.key.get_mods() & pygame.KMOD_SHIFT:
 						Z1 = True
@@ -868,6 +920,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(Z1):
 							wrongkey.play()
+							sc = sc - 10
 					else:
 						z1 = True
 						for i in range(0,number):
@@ -879,6 +932,7 @@ def gameloop(level):
 								balloony[i] = random.randrange(600,650)
 						if(z1):
 							wrongkey.play()
+							sc = sc - 10
 		
 
 		
