@@ -200,6 +200,9 @@ for i in range (0,20):
 	
 
 def gameloop(level):
+	global balloony
+	global balloonx
+	global balloonl
 	ov = False
 	ex = False
 	#ov = False
@@ -236,7 +239,15 @@ def gameloop(level):
 						pygame.quit()
 						quit()
 					if event.key == pygame.K_c:
-						ov = False	
+						ov = False
+						ex = False
+						balloonl=[]
+						balloonx=[]
+						balloony=[]
+						for i in range (0,20):
+							balloonx.append(round(random.randrange(0,870)//20)*20)
+							balloonl.append(random.choice(string.ascii_letters))
+							balloony.append(random.randrange(600,650))
 						intro()
 		
 		gd.blit(bg1 , (0,0))
