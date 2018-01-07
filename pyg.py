@@ -22,6 +22,7 @@ gd = pygame.display.set_mode((dw,dh))
 bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
+heart = pygame.image.load("heart0024.png")
 
 #game sounds
 wrongkey = pygame.mixer.Sound("wrongkey.wav")
@@ -33,9 +34,10 @@ pygame.mixer.music.play()
 
 pygame.display.set_caption('Key Stroke')
 
+ 
 smallfont = pygame.font.SysFont("noteworthy" , 22)
 mediumfont = pygame.font.SysFont("noteworthy" , 40)
-largefont = pygame.font.SysFont("Bradley Hand" , 60)
+largefont = pygame.font.SysFont("Planet Benson Two" , 60)
 
 clock = pygame.time.Clock()
 
@@ -203,6 +205,7 @@ def gameloop(level):
 	global balloony
 	global balloonx
 	global balloonl
+	life = 3
 	ov = False
 	ex = False
 	#ov = False
@@ -218,7 +221,7 @@ def gameloop(level):
 		number = 20
 
 	while not ex:
-
+		
 		if ov == True:
 			gd.fill((50,100,200))
 			message_to_screen("game over",white,0,0,"large")
@@ -251,6 +254,18 @@ def gameloop(level):
 						intro()
 		
 		gd.blit(bg1 , (0,0))
+		if life == 3:
+			gd.blit(heart,(790,0))
+			gd.blit(heart,(820,0))
+			gd.blit(heart,(850,0))
+		if life == 2:
+			#gd.blit(heart,(790,0))
+			gd.blit(heart,(820,0))
+			gd.blit(heart,(850,0))
+		if life == 1:
+			#gd.blit(heart,(790,0))
+			#gd.blit(heart,(820,0))
+			gd.blit(heart,(850,0))		
 		pygame.display.update()
 		for i in range (0,number):
 			gd.blit(bal , (balloonx[i],balloony[i]))
@@ -868,9 +883,15 @@ def gameloop(level):
 
 		
 		for i in range(0,number):
-			balloony[i] = balloony[i] - 2
-			if balloony[i]<= 0:
-				ov = True
+			balloony[i] = balloony[i] - 1
+			if balloony[i]== 0:
+				balloonl[i] = random.choice(string.ascii_letters)
+				balloony[i] = random.randrange(600,650)
+				life -= 1
+
+		if life == 0:
+			ov = True	
+							
 		score(sc)
 	
 		#clock.tick(10000)
