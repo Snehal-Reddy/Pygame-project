@@ -70,13 +70,13 @@ def button(msg,bx,by,bw,bh,color1,color,action):
 				pygame.quit()
 				quit()
 			elif action == "Easy":
-				ov = False
+				#ov = False
 				gameloop("Easy")
 			elif action == "Medium":
-				ov = False
+				#ov = False
 				gameloop("Medium")
 			elif action == "Hard":
-				ov = False
+				#ov = False
 				gameloop("Hard")
 
 
@@ -168,7 +168,7 @@ def level_screen():
 		pygame.display.update()
 		message_to_screen("BURST THE BALLOONS!" , blue , 0,+50 , "large")
 
-		ov = False
+		#ov = False
 		
 		button("Easy" , 50,200,150,50 ,blue , darkblue , action = "Easy")
 		button("Medium" ,325,200,150,50  ,white , grey , action="Medium")
@@ -216,7 +216,7 @@ def gameloop(level):
 		if ov == True:
 			gd.fill((50,100,200))
 			message_to_screen("game over",white,0,0,"large")
-			message_to_screen("press c to pay again",white,0,40,"small")
+			message_to_screen("press c to play again",white,0,40,"small")
 			message_to_screen("press q to quit",white,0,70,"small")
 			
 			pygame.display.update()
@@ -233,7 +233,8 @@ def gameloop(level):
 						pygame.quit()
 						quit()
 					if event.key == pygame.K_c:
-						ov = False	
+						ov = False
+						ex = False	
 						intro()
 		
 		gd.blit(bg1 , (0,0))
