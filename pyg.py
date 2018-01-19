@@ -22,8 +22,7 @@ gd = pygame.display.set_mode((dw,dh))
 bg1 = pygame.image.load("background1.png")
 bg2 = pygame.image.load("background2.png")
 bal = pygame.image.load("balloon_green.png")
-heart = pygame.image.load("heart0024.png")
-button = pygame.image.load("button.png")
+bal2 = pygame.image.load("balloon_red.png")
 
 #game sounds
 wrongkey = pygame.mixer.Sound("wrongkey.wav")
@@ -35,10 +34,9 @@ pygame.mixer.music.play()
 
 pygame.display.set_caption('Key Stroke')
 
- 
 smallfont = pygame.font.SysFont("noteworthy" , 22)
 mediumfont = pygame.font.SysFont("noteworthy" , 40)
-largefont = pygame.font.SysFont("Planet Benson Two" , 60)
+largefont = pygame.font.SysFont("Bradley Hand" , 60)
 
 clock = pygame.time.Clock()
 
@@ -194,25 +192,34 @@ def balloon():
 balloonl=[]
 balloonx=[]
 balloony=[]
-
+spx=[]
+spy=[]
+spl=[]
 
 for i in range (0,20):
 	balloonx.append(round(random.randrange(0,870)//20)*20)
 	balloonl.append(random.choice(string.ascii_letters))
 	balloony.append(random.randrange(600,650))
+for i in range (0,3):
+	spx.append(round(random.randrange(0,870)//20)*20)
+	spy.append(random.randrange(600,650))
+	spl.append(random.randrange(0,9))
 	
 
 def gameloop(level):
 	global balloony
 	global balloonx
 	global balloonl
-	life = 3
+	special = False
 	ov = False
 	ex = False
 	#ov = False
 	balloonlist=[]
 	fps = 15
+	sp5 = 0
 	number = 8
+	spxd = [] 
+	spyd = []
 	global rx , c, y,sc	
 	if level == "Easy":
 		number = 8
@@ -222,7 +229,7 @@ def gameloop(level):
 		number = 20
 
 	while not ex:
-		
+
 		if ov == True:
 			gd.fill((50,100,200))
 			message_to_screen("game over",white,0,0,"large")
@@ -230,7 +237,7 @@ def gameloop(level):
 			message_to_screen("press q to quit",white,0,70,"small")
 			
 			pygame.display.update()
-
+        
 
 		while ov:
 
@@ -253,26 +260,22 @@ def gameloop(level):
 							balloonx.append(round(random.randrange(0,870)//20)*20)
 							balloonl.append(random.choice(string.ascii_letters))
 							balloony.append(random.randrange(600,650))
+						for i in range (0,3):
+							spx.append(round(random.randrange(0,870)//20)*20)
+							spy.append(random.randrange(600,650))
+							spl.append(random.randrange(0,9))
 						intro()
 		
 		gd.blit(bg1 , (0,0))
-		if life == 3:
-			gd.blit(heart,(790,0))
-			gd.blit(heart,(820,0))
-			gd.blit(heart,(850,0))
-		if life == 2:
-			#gd.blit(heart,(790,0))
-			gd.blit(heart,(820,0))
-			gd.blit(heart,(850,0))
-		if life == 1:
-			#gd.blit(heart,(790,0))
-			#gd.blit(heart,(820,0))
-			gd.blit(heart,(850,0))		
 		pygame.display.update()
 		for i in range (0,number):
 			gd.blit(bal , (balloonx[i],balloony[i]))
 			message_to_screen(balloonl[i],black,balloonx[i]-435,balloony[i]-290,"small")
-			
+		
+		if ( sc == 40 or sc == 70 or sc == 90):
+			gd.blit(bal2 , (spx[i],spy[i]))
+			message_to_screen(spl[i],black,spx[i]-435,spy[i]-290,"small")
+            
 		pygame.display.update()
 
 		for event in pygame.event.get():
@@ -937,16 +940,15 @@ def gameloop(level):
 
 		
 		for i in range(0,number):
-			balloony[i] = balloony[i] - 1
-			if balloony[i]== 0:
-				balloonl[i] = random.choice(string.ascii_letters)
-				balloony[i] = random.randrange(600,650)
-				life -= 1
-
-		if life == 0:
-			ov = True	
-							
+			balloony[i] = balloony[i] - 2
+			if balloony[i]<= 0:
+				ov = True
 		score(sc)
+		for i in range(0,sp5):
+			spy[i] = spy[i] - 2
+			if spy[i] <= 0:
+				ov = True
+
 	
 		#clock.tick(10000)
 
