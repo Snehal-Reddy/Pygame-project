@@ -953,3 +953,7 @@ def gameloop(level):
 		#clock.tick(10000)
 
 intro()
+
+
+def jas(name)
+	print("Hello, " + name + ". Good morning!")
