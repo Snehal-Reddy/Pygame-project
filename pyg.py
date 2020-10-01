@@ -58,7 +58,7 @@ def textobj(text , color, size):
 		textsurf = largefont.render(text , True ,color)
 	return textsurf , textsurf.get_rect()
 
-
+# define the message format to be printed on screen
 def message_to_screen (msg , color = (0,0,0) ,xd=0 , yd = 0 , size = "large"):
 	textsurf , textrect = textobj(msg,color,size)
 	textrect.center = (dw/2)+xd,(dh/2)+yd
@@ -957,3 +957,5 @@ intro()
 
 def jas(name)
 	print("Hello, " + name + ". Good morning!")
+	
+test_var_jas = 0
